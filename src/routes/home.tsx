@@ -154,7 +154,7 @@ function ProviderCard({
       </div>
       <div className="flex flex-col gap-1.5">
         <Button asChild size="sm" className="rounded-xl h-9 px-4 font-bold" disabled={!available}>
-          <Link to="/order/$type" params={{ type: service === "ماء" ? "water" : "gas" }} search={{ p: id }}>
+          <Link to="/order/$type" params={{ type: service === "ماء" ? "water" : "gas" }}>
             اطلب
           </Link>
         </Button>
