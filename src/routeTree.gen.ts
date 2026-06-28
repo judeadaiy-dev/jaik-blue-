@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as TrackingRouteImport } from './routes/tracking'
 import { Route as RegisterRouteImport } from './routes/register'
 import { Route as ProvidersRouteImport } from './routes/providers'
 import { Route as LoginRouteImport } from './routes/login'
@@ -16,6 +17,11 @@ import { Route as HomeRouteImport } from './routes/home'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as OrderTypeRouteImport } from './routes/order.$type'
 
+const TrackingRoute = TrackingRouteImport.update({
+  id: '/tracking',
+  path: '/tracking',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const RegisterRoute = RegisterRouteImport.update({
   id: '/register',
   path: '/register',
@@ -53,6 +59,7 @@ export interface FileRoutesByFullPath {
   '/login': typeof LoginRoute
   '/providers': typeof ProvidersRoute
   '/register': typeof RegisterRoute
+  '/tracking': typeof TrackingRoute
   '/order/$type': typeof OrderTypeRoute
 }
 export interface FileRoutesByTo {
@@ -61,6 +68,7 @@ export interface FileRoutesByTo {
   '/login': typeof LoginRoute
   '/providers': typeof ProvidersRoute
   '/register': typeof RegisterRoute
+  '/tracking': typeof TrackingRoute
   '/order/$type': typeof OrderTypeRoute
 }
 export interface FileRoutesById {
@@ -70,6 +78,7 @@ export interface FileRoutesById {
   '/login': typeof LoginRoute
   '/providers': typeof ProvidersRoute
   '/register': typeof RegisterRoute
+  '/tracking': typeof TrackingRoute
   '/order/$type': typeof OrderTypeRoute
 }
 export interface FileRouteTypes {
@@ -80,9 +89,17 @@ export interface FileRouteTypes {
     | '/login'
     | '/providers'
     | '/register'
+    | '/tracking'
     | '/order/$type'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/home' | '/login' | '/providers' | '/register' | '/order/$type'
+  to:
+    | '/'
+    | '/home'
+    | '/login'
+    | '/providers'
+    | '/register'
+    | '/tracking'
+    | '/order/$type'
   id:
     | '__root__'
     | '/'
@@ -90,6 +107,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/providers'
     | '/register'
+    | '/tracking'
     | '/order/$type'
   fileRoutesById: FileRoutesById
 }
@@ -99,11 +117,19 @@ export interface RootRouteChildren {
   LoginRoute: typeof LoginRoute
   ProvidersRoute: typeof ProvidersRoute
   RegisterRoute: typeof RegisterRoute
+  TrackingRoute: typeof TrackingRoute
   OrderTypeRoute: typeof OrderTypeRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/tracking': {
+      id: '/tracking'
+      path: '/tracking'
+      fullPath: '/tracking'
+      preLoaderRoute: typeof TrackingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/register': {
       id: '/register'
       path: '/register'
@@ -155,6 +181,7 @@ const rootRouteChildren: RootRouteChildren = {
   LoginRoute: LoginRoute,
   ProvidersRoute: ProvidersRoute,
   RegisterRoute: RegisterRoute,
+  TrackingRoute: TrackingRoute,
   OrderTypeRoute: OrderTypeRoute,
 }
 export const routeTree = rootRouteImport
