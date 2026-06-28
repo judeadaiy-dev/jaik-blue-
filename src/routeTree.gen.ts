@@ -20,6 +20,7 @@ import { Route as LoginRouteImport } from './routes/login'
 import { Route as HomeRouteImport } from './routes/home'
 import { Route as AccountRouteImport } from './routes/account'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ProviderHistoryRouteImport } from './routes/provider.history'
 import { Route as ProviderActiveRouteImport } from './routes/provider.active'
 import { Route as OrderTypeRouteImport } from './routes/order.$type'
 
@@ -78,6 +79,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ProviderHistoryRoute = ProviderHistoryRouteImport.update({
+  id: '/history',
+  path: '/history',
+  getParentRoute: () => ProviderRoute,
+} as any)
 const ProviderActiveRoute = ProviderActiveRouteImport.update({
   id: '/active',
   path: '/active',
@@ -103,6 +109,7 @@ export interface FileRoutesByFullPath {
   '/tracking': typeof TrackingRoute
   '/order/$type': typeof OrderTypeRoute
   '/provider/active': typeof ProviderActiveRoute
+  '/provider/history': typeof ProviderHistoryRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -118,6 +125,7 @@ export interface FileRoutesByTo {
   '/tracking': typeof TrackingRoute
   '/order/$type': typeof OrderTypeRoute
   '/provider/active': typeof ProviderActiveRoute
+  '/provider/history': typeof ProviderHistoryRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -134,6 +142,7 @@ export interface FileRoutesById {
   '/tracking': typeof TrackingRoute
   '/order/$type': typeof OrderTypeRoute
   '/provider/active': typeof ProviderActiveRoute
+  '/provider/history': typeof ProviderHistoryRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -151,6 +160,7 @@ export interface FileRouteTypes {
     | '/tracking'
     | '/order/$type'
     | '/provider/active'
+    | '/provider/history'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -166,6 +176,7 @@ export interface FileRouteTypes {
     | '/tracking'
     | '/order/$type'
     | '/provider/active'
+    | '/provider/history'
   id:
     | '__root__'
     | '/'
@@ -181,6 +192,7 @@ export interface FileRouteTypes {
     | '/tracking'
     | '/order/$type'
     | '/provider/active'
+    | '/provider/history'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -277,6 +289,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/provider/history': {
+      id: '/provider/history'
+      path: '/history'
+      fullPath: '/provider/history'
+      preLoaderRoute: typeof ProviderHistoryRouteImport
+      parentRoute: typeof ProviderRoute
+    }
     '/provider/active': {
       id: '/provider/active'
       path: '/active'
@@ -296,10 +315,12 @@ declare module '@tanstack/react-router' {
 
 interface ProviderRouteChildren {
   ProviderActiveRoute: typeof ProviderActiveRoute
+  ProviderHistoryRoute: typeof ProviderHistoryRoute
 }
 
 const ProviderRouteChildren: ProviderRouteChildren = {
   ProviderActiveRoute: ProviderActiveRoute,
+  ProviderHistoryRoute: ProviderHistoryRoute,
 }
 
 const ProviderRouteWithChildren = ProviderRoute._addFileChildren(
