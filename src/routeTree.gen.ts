@@ -13,6 +13,7 @@ import { Route as TrackingRouteImport } from './routes/tracking'
 import { Route as RegisterRouteImport } from './routes/register'
 import { Route as RatingRouteImport } from './routes/rating'
 import { Route as ProvidersRouteImport } from './routes/providers'
+import { Route as ProviderRouteImport } from './routes/provider'
 import { Route as OrdersRouteImport } from './routes/orders'
 import { Route as NotificationsRouteImport } from './routes/notifications'
 import { Route as LoginRouteImport } from './routes/login'
@@ -39,6 +40,11 @@ const RatingRoute = RatingRouteImport.update({
 const ProvidersRoute = ProvidersRouteImport.update({
   id: '/providers',
   path: '/providers',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProviderRoute = ProviderRouteImport.update({
+  id: '/provider',
+  path: '/provider',
   getParentRoute: () => rootRouteImport,
 } as any)
 const OrdersRoute = OrdersRouteImport.update({
@@ -84,6 +90,7 @@ export interface FileRoutesByFullPath {
   '/login': typeof LoginRoute
   '/notifications': typeof NotificationsRoute
   '/orders': typeof OrdersRoute
+  '/provider': typeof ProviderRoute
   '/providers': typeof ProvidersRoute
   '/rating': typeof RatingRoute
   '/register': typeof RegisterRoute
@@ -97,6 +104,7 @@ export interface FileRoutesByTo {
   '/login': typeof LoginRoute
   '/notifications': typeof NotificationsRoute
   '/orders': typeof OrdersRoute
+  '/provider': typeof ProviderRoute
   '/providers': typeof ProvidersRoute
   '/rating': typeof RatingRoute
   '/register': typeof RegisterRoute
@@ -111,6 +119,7 @@ export interface FileRoutesById {
   '/login': typeof LoginRoute
   '/notifications': typeof NotificationsRoute
   '/orders': typeof OrdersRoute
+  '/provider': typeof ProviderRoute
   '/providers': typeof ProvidersRoute
   '/rating': typeof RatingRoute
   '/register': typeof RegisterRoute
@@ -126,6 +135,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/notifications'
     | '/orders'
+    | '/provider'
     | '/providers'
     | '/rating'
     | '/register'
@@ -139,6 +149,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/notifications'
     | '/orders'
+    | '/provider'
     | '/providers'
     | '/rating'
     | '/register'
@@ -152,6 +163,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/notifications'
     | '/orders'
+    | '/provider'
     | '/providers'
     | '/rating'
     | '/register'
@@ -166,6 +178,7 @@ export interface RootRouteChildren {
   LoginRoute: typeof LoginRoute
   NotificationsRoute: typeof NotificationsRoute
   OrdersRoute: typeof OrdersRoute
+  ProviderRoute: typeof ProviderRoute
   ProvidersRoute: typeof ProvidersRoute
   RatingRoute: typeof RatingRoute
   RegisterRoute: typeof RegisterRoute
@@ -201,6 +214,13 @@ declare module '@tanstack/react-router' {
       path: '/providers'
       fullPath: '/providers'
       preLoaderRoute: typeof ProvidersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/provider': {
+      id: '/provider'
+      path: '/provider'
+      fullPath: '/provider'
+      preLoaderRoute: typeof ProviderRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/orders': {
@@ -262,6 +282,7 @@ const rootRouteChildren: RootRouteChildren = {
   LoginRoute: LoginRoute,
   NotificationsRoute: NotificationsRoute,
   OrdersRoute: OrdersRoute,
+  ProviderRoute: ProviderRoute,
   ProvidersRoute: ProvidersRoute,
   RatingRoute: RatingRoute,
   RegisterRoute: RegisterRoute,
