@@ -14,6 +14,7 @@ import { Route as RegisterRouteImport } from './routes/register'
 import { Route as RatingRouteImport } from './routes/rating'
 import { Route as ProvidersRouteImport } from './routes/providers'
 import { Route as OrdersRouteImport } from './routes/orders'
+import { Route as NotificationsRouteImport } from './routes/notifications'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as HomeRouteImport } from './routes/home'
 import { Route as IndexRouteImport } from './routes/index'
@@ -44,6 +45,11 @@ const OrdersRoute = OrdersRouteImport.update({
   path: '/orders',
   getParentRoute: () => rootRouteImport,
 } as any)
+const NotificationsRoute = NotificationsRouteImport.update({
+  id: '/notifications',
+  path: '/notifications',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
   path: '/login',
@@ -69,6 +75,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/home': typeof HomeRoute
   '/login': typeof LoginRoute
+  '/notifications': typeof NotificationsRoute
   '/orders': typeof OrdersRoute
   '/providers': typeof ProvidersRoute
   '/rating': typeof RatingRoute
@@ -80,6 +87,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/home': typeof HomeRoute
   '/login': typeof LoginRoute
+  '/notifications': typeof NotificationsRoute
   '/orders': typeof OrdersRoute
   '/providers': typeof ProvidersRoute
   '/rating': typeof RatingRoute
@@ -92,6 +100,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/home': typeof HomeRoute
   '/login': typeof LoginRoute
+  '/notifications': typeof NotificationsRoute
   '/orders': typeof OrdersRoute
   '/providers': typeof ProvidersRoute
   '/rating': typeof RatingRoute
@@ -105,6 +114,7 @@ export interface FileRouteTypes {
     | '/'
     | '/home'
     | '/login'
+    | '/notifications'
     | '/orders'
     | '/providers'
     | '/rating'
@@ -116,6 +126,7 @@ export interface FileRouteTypes {
     | '/'
     | '/home'
     | '/login'
+    | '/notifications'
     | '/orders'
     | '/providers'
     | '/rating'
@@ -127,6 +138,7 @@ export interface FileRouteTypes {
     | '/'
     | '/home'
     | '/login'
+    | '/notifications'
     | '/orders'
     | '/providers'
     | '/rating'
@@ -139,6 +151,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   HomeRoute: typeof HomeRoute
   LoginRoute: typeof LoginRoute
+  NotificationsRoute: typeof NotificationsRoute
   OrdersRoute: typeof OrdersRoute
   ProvidersRoute: typeof ProvidersRoute
   RatingRoute: typeof RatingRoute
@@ -184,6 +197,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof OrdersRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/notifications': {
+      id: '/notifications'
+      path: '/notifications'
+      fullPath: '/notifications'
+      preLoaderRoute: typeof NotificationsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/login': {
       id: '/login'
       path: '/login'
@@ -219,6 +239,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   HomeRoute: HomeRoute,
   LoginRoute: LoginRoute,
+  NotificationsRoute: NotificationsRoute,
   OrdersRoute: OrdersRoute,
   ProvidersRoute: ProvidersRoute,
   RatingRoute: RatingRoute,
