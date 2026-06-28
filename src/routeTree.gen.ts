@@ -20,6 +20,7 @@ import { Route as LoginRouteImport } from './routes/login'
 import { Route as HomeRouteImport } from './routes/home'
 import { Route as AccountRouteImport } from './routes/account'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ProviderActiveRouteImport } from './routes/provider.active'
 import { Route as OrderTypeRouteImport } from './routes/order.$type'
 
 const TrackingRoute = TrackingRouteImport.update({
@@ -77,6 +78,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ProviderActiveRoute = ProviderActiveRouteImport.update({
+  id: '/active',
+  path: '/active',
+  getParentRoute: () => ProviderRoute,
+} as any)
 const OrderTypeRoute = OrderTypeRouteImport.update({
   id: '/order/$type',
   path: '/order/$type',
@@ -90,12 +96,13 @@ export interface FileRoutesByFullPath {
   '/login': typeof LoginRoute
   '/notifications': typeof NotificationsRoute
   '/orders': typeof OrdersRoute
-  '/provider': typeof ProviderRoute
+  '/provider': typeof ProviderRouteWithChildren
   '/providers': typeof ProvidersRoute
   '/rating': typeof RatingRoute
   '/register': typeof RegisterRoute
   '/tracking': typeof TrackingRoute
   '/order/$type': typeof OrderTypeRoute
+  '/provider/active': typeof ProviderActiveRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -104,12 +111,13 @@ export interface FileRoutesByTo {
   '/login': typeof LoginRoute
   '/notifications': typeof NotificationsRoute
   '/orders': typeof OrdersRoute
-  '/provider': typeof ProviderRoute
+  '/provider': typeof ProviderRouteWithChildren
   '/providers': typeof ProvidersRoute
   '/rating': typeof RatingRoute
   '/register': typeof RegisterRoute
   '/tracking': typeof TrackingRoute
   '/order/$type': typeof OrderTypeRoute
+  '/provider/active': typeof ProviderActiveRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -119,12 +127,13 @@ export interface FileRoutesById {
   '/login': typeof LoginRoute
   '/notifications': typeof NotificationsRoute
   '/orders': typeof OrdersRoute
-  '/provider': typeof ProviderRoute
+  '/provider': typeof ProviderRouteWithChildren
   '/providers': typeof ProvidersRoute
   '/rating': typeof RatingRoute
   '/register': typeof RegisterRoute
   '/tracking': typeof TrackingRoute
   '/order/$type': typeof OrderTypeRoute
+  '/provider/active': typeof ProviderActiveRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -141,6 +150,7 @@ export interface FileRouteTypes {
     | '/register'
     | '/tracking'
     | '/order/$type'
+    | '/provider/active'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -155,6 +165,7 @@ export interface FileRouteTypes {
     | '/register'
     | '/tracking'
     | '/order/$type'
+    | '/provider/active'
   id:
     | '__root__'
     | '/'
@@ -169,6 +180,7 @@ export interface FileRouteTypes {
     | '/register'
     | '/tracking'
     | '/order/$type'
+    | '/provider/active'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -178,7 +190,7 @@ export interface RootRouteChildren {
   LoginRoute: typeof LoginRoute
   NotificationsRoute: typeof NotificationsRoute
   OrdersRoute: typeof OrdersRoute
-  ProviderRoute: typeof ProviderRoute
+  ProviderRoute: typeof ProviderRouteWithChildren
   ProvidersRoute: typeof ProvidersRoute
   RatingRoute: typeof RatingRoute
   RegisterRoute: typeof RegisterRoute
@@ -265,6 +277,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/provider/active': {
+      id: '/provider/active'
+      path: '/active'
+      fullPath: '/provider/active'
+      preLoaderRoute: typeof ProviderActiveRouteImport
+      parentRoute: typeof ProviderRoute
+    }
     '/order/$type': {
       id: '/order/$type'
       path: '/order/$type'
@@ -275,6 +294,18 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface ProviderRouteChildren {
+  ProviderActiveRoute: typeof ProviderActiveRoute
+}
+
+const ProviderRouteChildren: ProviderRouteChildren = {
+  ProviderActiveRoute: ProviderActiveRoute,
+}
+
+const ProviderRouteWithChildren = ProviderRoute._addFileChildren(
+  ProviderRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AccountRoute: AccountRoute,
@@ -282,7 +313,7 @@ const rootRouteChildren: RootRouteChildren = {
   LoginRoute: LoginRoute,
   NotificationsRoute: NotificationsRoute,
   OrdersRoute: OrdersRoute,
-  ProviderRoute: ProviderRoute,
+  ProviderRoute: ProviderRouteWithChildren,
   ProvidersRoute: ProvidersRoute,
   RatingRoute: RatingRoute,
   RegisterRoute: RegisterRoute,
