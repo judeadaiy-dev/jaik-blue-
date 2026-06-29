@@ -1,5 +1,6 @@
 import { useNavigate } from "@tanstack/react-router";
 import { ChevronRight } from "lucide-react";
+import { SideMenu } from "@/components/SideMenu";
 
 export function PageHeader({
   title,
@@ -21,8 +22,8 @@ export function PageHeader({
       >
         <ChevronRight className="w-5 h-5" />
       </button>
-      <h1 className="flex-1 text-center font-extrabold text-lg pl-11">{title}</h1>
-      {right ?? <div className="w-11" />}
+      <h1 className="flex-1 text-center font-extrabold text-lg">{title}</h1>
+      {right ?? <SideMenu />}
     </header>
   );
 }

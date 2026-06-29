@@ -1,7 +1,7 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect } from "react";
-import { useNavigate } from "@tanstack/react-router";
 import { Droplets } from "lucide-react";
+import { useAuth } from "@/lib/auth-context";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -17,10 +17,14 @@ export const Route = createFileRoute("/")({
 
 function Splash() {
   const navigate = useNavigate();
+  const { user, loading } = useAuth();
   useEffect(() => {
-    const t = setTimeout(() => navigate({ to: "/login" }), 1800);
+    if (loading) return;
+    const t = setTimeout(() => {
+      navigate({ to: user ? "/home" : "/login" });
+    }, 1500);
     return () => clearTimeout(t);
-  }, [navigate]);
+  }, [navigate, user, loading]);
   return (
     <div
       className="flex min-h-screen items-center justify-center"
