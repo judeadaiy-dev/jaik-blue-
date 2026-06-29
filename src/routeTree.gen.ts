@@ -20,6 +20,7 @@ import { Route as AdminRouteImport } from './routes/admin'
 import { Route as AccountRouteImport } from './routes/account'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ProviderActiveRouteImport } from './routes/provider.active'
+import { Route as ProviderDetailIdRouteImport } from './routes/provider-detail.$id'
 
 const RegisterRoute = RegisterRouteImport.update({
   id: '/register',
@@ -76,6 +77,11 @@ const ProviderActiveRoute = ProviderActiveRouteImport.update({
   path: '/active',
   getParentRoute: () => ProviderRoute,
 } as any)
+const ProviderDetailIdRoute = ProviderDetailIdRouteImport.update({
+  id: '/provider-detail/$id',
+  path: '/provider-detail/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -88,6 +94,7 @@ export interface FileRoutesByFullPath {
   '/orders': typeof OrdersRoute
   '/provider': typeof ProviderRouteWithChildren
   '/register': typeof RegisterRoute
+  '/provider-detail/$id': typeof ProviderDetailIdRoute
   '/provider/active': typeof ProviderActiveRoute
 }
 export interface FileRoutesByTo {
@@ -101,6 +108,7 @@ export interface FileRoutesByTo {
   '/orders': typeof OrdersRoute
   '/provider': typeof ProviderRouteWithChildren
   '/register': typeof RegisterRoute
+  '/provider-detail/$id': typeof ProviderDetailIdRoute
   '/provider/active': typeof ProviderActiveRoute
 }
 export interface FileRoutesById {
@@ -115,6 +123,7 @@ export interface FileRoutesById {
   '/orders': typeof OrdersRoute
   '/provider': typeof ProviderRouteWithChildren
   '/register': typeof RegisterRoute
+  '/provider-detail/$id': typeof ProviderDetailIdRoute
   '/provider/active': typeof ProviderActiveRoute
 }
 export interface FileRouteTypes {
@@ -130,6 +139,7 @@ export interface FileRouteTypes {
     | '/orders'
     | '/provider'
     | '/register'
+    | '/provider-detail/$id'
     | '/provider/active'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -143,6 +153,7 @@ export interface FileRouteTypes {
     | '/orders'
     | '/provider'
     | '/register'
+    | '/provider-detail/$id'
     | '/provider/active'
   id:
     | '__root__'
@@ -156,6 +167,7 @@ export interface FileRouteTypes {
     | '/orders'
     | '/provider'
     | '/register'
+    | '/provider-detail/$id'
     | '/provider/active'
   fileRoutesById: FileRoutesById
 }
@@ -170,6 +182,7 @@ export interface RootRouteChildren {
   OrdersRoute: typeof OrdersRoute
   ProviderRoute: typeof ProviderRouteWithChildren
   RegisterRoute: typeof RegisterRoute
+  ProviderDetailIdRoute: typeof ProviderDetailIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -251,6 +264,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProviderActiveRouteImport
       parentRoute: typeof ProviderRoute
     }
+    '/provider-detail/$id': {
+      id: '/provider-detail/$id'
+      path: '/provider-detail/$id'
+      fullPath: '/provider-detail/$id'
+      preLoaderRoute: typeof ProviderDetailIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -277,6 +297,7 @@ const rootRouteChildren: RootRouteChildren = {
   OrdersRoute: OrdersRoute,
   ProviderRoute: ProviderRouteWithChildren,
   RegisterRoute: RegisterRoute,
+  ProviderDetailIdRoute: ProviderDetailIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
