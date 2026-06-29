@@ -10,12 +10,14 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as RegisterRouteImport } from './routes/register'
+import { Route as ProviderSetupRouteImport } from './routes/provider-setup'
 import { Route as ProviderRouteImport } from './routes/provider'
 import { Route as OrdersRouteImport } from './routes/orders'
 import { Route as OnboardingRouteImport } from './routes/onboarding'
 import { Route as NotificationsRouteImport } from './routes/notifications'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as HomeRouteImport } from './routes/home'
+import { Route as FavoritesRouteImport } from './routes/favorites'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as AccountRouteImport } from './routes/account'
 import { Route as IndexRouteImport } from './routes/index'
@@ -27,6 +29,11 @@ import { Route as ProviderDetailIdRouteImport } from './routes/provider-detail.$
 const RegisterRoute = RegisterRouteImport.update({
   id: '/register',
   path: '/register',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProviderSetupRoute = ProviderSetupRouteImport.update({
+  id: '/provider-setup',
+  path: '/provider-setup',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ProviderRoute = ProviderRouteImport.update({
@@ -57,6 +64,11 @@ const LoginRoute = LoginRouteImport.update({
 const HomeRoute = HomeRouteImport.update({
   id: '/home',
   path: '/home',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FavoritesRoute = FavoritesRouteImport.update({
+  id: '/favorites',
+  path: '/favorites',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AdminRoute = AdminRouteImport.update({
@@ -99,12 +111,14 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/account': typeof AccountRoute
   '/admin': typeof AdminRoute
+  '/favorites': typeof FavoritesRoute
   '/home': typeof HomeRoute
   '/login': typeof LoginRoute
   '/notifications': typeof NotificationsRoute
   '/onboarding': typeof OnboardingRoute
   '/orders': typeof OrdersRoute
   '/provider': typeof ProviderRouteWithChildren
+  '/provider-setup': typeof ProviderSetupRoute
   '/register': typeof RegisterRoute
   '/provider-detail/$id': typeof ProviderDetailIdRoute
   '/provider/active': typeof ProviderActiveRoute
@@ -115,12 +129,14 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/account': typeof AccountRoute
   '/admin': typeof AdminRoute
+  '/favorites': typeof FavoritesRoute
   '/home': typeof HomeRoute
   '/login': typeof LoginRoute
   '/notifications': typeof NotificationsRoute
   '/onboarding': typeof OnboardingRoute
   '/orders': typeof OrdersRoute
   '/provider': typeof ProviderRouteWithChildren
+  '/provider-setup': typeof ProviderSetupRoute
   '/register': typeof RegisterRoute
   '/provider-detail/$id': typeof ProviderDetailIdRoute
   '/provider/active': typeof ProviderActiveRoute
@@ -132,12 +148,14 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/account': typeof AccountRoute
   '/admin': typeof AdminRoute
+  '/favorites': typeof FavoritesRoute
   '/home': typeof HomeRoute
   '/login': typeof LoginRoute
   '/notifications': typeof NotificationsRoute
   '/onboarding': typeof OnboardingRoute
   '/orders': typeof OrdersRoute
   '/provider': typeof ProviderRouteWithChildren
+  '/provider-setup': typeof ProviderSetupRoute
   '/register': typeof RegisterRoute
   '/provider-detail/$id': typeof ProviderDetailIdRoute
   '/provider/active': typeof ProviderActiveRoute
@@ -150,12 +168,14 @@ export interface FileRouteTypes {
     | '/'
     | '/account'
     | '/admin'
+    | '/favorites'
     | '/home'
     | '/login'
     | '/notifications'
     | '/onboarding'
     | '/orders'
     | '/provider'
+    | '/provider-setup'
     | '/register'
     | '/provider-detail/$id'
     | '/provider/active'
@@ -166,12 +186,14 @@ export interface FileRouteTypes {
     | '/'
     | '/account'
     | '/admin'
+    | '/favorites'
     | '/home'
     | '/login'
     | '/notifications'
     | '/onboarding'
     | '/orders'
     | '/provider'
+    | '/provider-setup'
     | '/register'
     | '/provider-detail/$id'
     | '/provider/active'
@@ -182,12 +204,14 @@ export interface FileRouteTypes {
     | '/'
     | '/account'
     | '/admin'
+    | '/favorites'
     | '/home'
     | '/login'
     | '/notifications'
     | '/onboarding'
     | '/orders'
     | '/provider'
+    | '/provider-setup'
     | '/register'
     | '/provider-detail/$id'
     | '/provider/active'
@@ -199,12 +223,14 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AccountRoute: typeof AccountRoute
   AdminRoute: typeof AdminRoute
+  FavoritesRoute: typeof FavoritesRoute
   HomeRoute: typeof HomeRoute
   LoginRoute: typeof LoginRoute
   NotificationsRoute: typeof NotificationsRoute
   OnboardingRoute: typeof OnboardingRoute
   OrdersRoute: typeof OrdersRoute
   ProviderRoute: typeof ProviderRouteWithChildren
+  ProviderSetupRoute: typeof ProviderSetupRoute
   RegisterRoute: typeof RegisterRoute
   ProviderDetailIdRoute: typeof ProviderDetailIdRoute
   RatingIdRoute: typeof RatingIdRoute
@@ -218,6 +244,13 @@ declare module '@tanstack/react-router' {
       path: '/register'
       fullPath: '/register'
       preLoaderRoute: typeof RegisterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/provider-setup': {
+      id: '/provider-setup'
+      path: '/provider-setup'
+      fullPath: '/provider-setup'
+      preLoaderRoute: typeof ProviderSetupRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/provider': {
@@ -260,6 +293,13 @@ declare module '@tanstack/react-router' {
       path: '/home'
       fullPath: '/home'
       preLoaderRoute: typeof HomeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/favorites': {
+      id: '/favorites'
+      path: '/favorites'
+      fullPath: '/favorites'
+      preLoaderRoute: typeof FavoritesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/admin': {
@@ -330,12 +370,14 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AccountRoute: AccountRoute,
   AdminRoute: AdminRoute,
+  FavoritesRoute: FavoritesRoute,
   HomeRoute: HomeRoute,
   LoginRoute: LoginRoute,
   NotificationsRoute: NotificationsRoute,
   OnboardingRoute: OnboardingRoute,
   OrdersRoute: OrdersRoute,
   ProviderRoute: ProviderRouteWithChildren,
+  ProviderSetupRoute: ProviderSetupRoute,
   RegisterRoute: RegisterRoute,
   ProviderDetailIdRoute: ProviderDetailIdRoute,
   RatingIdRoute: RatingIdRoute,
