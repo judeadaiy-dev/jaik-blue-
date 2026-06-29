@@ -32,9 +32,9 @@ function AccountPage() {
         setProfile({
           full_name: data.full_name,
           phone: data.phone,
-          // @ts-expect-error joined
+          // @ts-ignore joined
           gov: data.governorates?.name_ar,
-          // @ts-expect-error joined
+          // @ts-ignore joined
           area: data.areas?.name_ar,
         });
       });

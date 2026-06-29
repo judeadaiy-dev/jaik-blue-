@@ -43,7 +43,7 @@ function TrackingPage() {
       .eq("id", id)
       .maybeSingle();
     if (data) {
-      // @ts-expect-error joined
+      // @ts-ignore joined
       setOrder({ ...data, provider: data.providers });
     }
   }

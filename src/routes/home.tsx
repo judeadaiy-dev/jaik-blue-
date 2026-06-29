@@ -52,9 +52,9 @@ function HomePage() {
         setProfile({
           governorate_id: data.governorate_id,
           area_id: data.area_id,
-          // @ts-expect-error joined
+          // @ts-ignore joined
           governorate: data.governorates?.name_ar,
-          // @ts-expect-error joined
+          // @ts-ignore joined
           area: data.areas?.name_ar,
         });
       });

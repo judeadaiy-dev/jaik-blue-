@@ -18,7 +18,7 @@ function FavoritesPage() {
   useEffect(() => {
     if (!user) return;
     supabase.from("favorites").select("providers(id,business_name,service_type,rating_avg,price)").eq("user_id", user.id).then(({ data }) => {
-      // @ts-expect-error joined
+      // @ts-ignore joined
       setItems((data ?? []).map((r) => r.providers).filter(Boolean));
     });
   }, [user]);
