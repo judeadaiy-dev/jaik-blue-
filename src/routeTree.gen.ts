@@ -9,10 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as TrackingRouteImport } from './routes/tracking'
 import { Route as RegisterRouteImport } from './routes/register'
-import { Route as RatingRouteImport } from './routes/rating'
-import { Route as ProvidersRouteImport } from './routes/providers'
 import { Route as ProviderRouteImport } from './routes/provider'
 import { Route as OrdersRouteImport } from './routes/orders'
 import { Route as NotificationsRouteImport } from './routes/notifications'
@@ -21,28 +18,11 @@ import { Route as HomeRouteImport } from './routes/home'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as AccountRouteImport } from './routes/account'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as ProviderHistoryRouteImport } from './routes/provider.history'
 import { Route as ProviderActiveRouteImport } from './routes/provider.active'
-import { Route as OrderTypeRouteImport } from './routes/order.$type'
 
-const TrackingRoute = TrackingRouteImport.update({
-  id: '/tracking',
-  path: '/tracking',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const RegisterRoute = RegisterRouteImport.update({
   id: '/register',
   path: '/register',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const RatingRoute = RatingRouteImport.update({
-  id: '/rating',
-  path: '/rating',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ProvidersRoute = ProvidersRouteImport.update({
-  id: '/providers',
-  path: '/providers',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ProviderRoute = ProviderRouteImport.update({
@@ -85,20 +65,10 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ProviderHistoryRoute = ProviderHistoryRouteImport.update({
-  id: '/history',
-  path: '/history',
-  getParentRoute: () => ProviderRoute,
-} as any)
 const ProviderActiveRoute = ProviderActiveRouteImport.update({
   id: '/active',
   path: '/active',
   getParentRoute: () => ProviderRoute,
-} as any)
-const OrderTypeRoute = OrderTypeRouteImport.update({
-  id: '/order/$type',
-  path: '/order/$type',
-  getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
@@ -110,13 +80,8 @@ export interface FileRoutesByFullPath {
   '/notifications': typeof NotificationsRoute
   '/orders': typeof OrdersRoute
   '/provider': typeof ProviderRouteWithChildren
-  '/providers': typeof ProvidersRoute
-  '/rating': typeof RatingRoute
   '/register': typeof RegisterRoute
-  '/tracking': typeof TrackingRoute
-  '/order/$type': typeof OrderTypeRoute
   '/provider/active': typeof ProviderActiveRoute
-  '/provider/history': typeof ProviderHistoryRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -127,13 +92,8 @@ export interface FileRoutesByTo {
   '/notifications': typeof NotificationsRoute
   '/orders': typeof OrdersRoute
   '/provider': typeof ProviderRouteWithChildren
-  '/providers': typeof ProvidersRoute
-  '/rating': typeof RatingRoute
   '/register': typeof RegisterRoute
-  '/tracking': typeof TrackingRoute
-  '/order/$type': typeof OrderTypeRoute
   '/provider/active': typeof ProviderActiveRoute
-  '/provider/history': typeof ProviderHistoryRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -145,13 +105,8 @@ export interface FileRoutesById {
   '/notifications': typeof NotificationsRoute
   '/orders': typeof OrdersRoute
   '/provider': typeof ProviderRouteWithChildren
-  '/providers': typeof ProvidersRoute
-  '/rating': typeof RatingRoute
   '/register': typeof RegisterRoute
-  '/tracking': typeof TrackingRoute
-  '/order/$type': typeof OrderTypeRoute
   '/provider/active': typeof ProviderActiveRoute
-  '/provider/history': typeof ProviderHistoryRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -164,13 +119,8 @@ export interface FileRouteTypes {
     | '/notifications'
     | '/orders'
     | '/provider'
-    | '/providers'
-    | '/rating'
     | '/register'
-    | '/tracking'
-    | '/order/$type'
     | '/provider/active'
-    | '/provider/history'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -181,13 +131,8 @@ export interface FileRouteTypes {
     | '/notifications'
     | '/orders'
     | '/provider'
-    | '/providers'
-    | '/rating'
     | '/register'
-    | '/tracking'
-    | '/order/$type'
     | '/provider/active'
-    | '/provider/history'
   id:
     | '__root__'
     | '/'
@@ -198,13 +143,8 @@ export interface FileRouteTypes {
     | '/notifications'
     | '/orders'
     | '/provider'
-    | '/providers'
-    | '/rating'
     | '/register'
-    | '/tracking'
-    | '/order/$type'
     | '/provider/active'
-    | '/provider/history'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -216,41 +156,16 @@ export interface RootRouteChildren {
   NotificationsRoute: typeof NotificationsRoute
   OrdersRoute: typeof OrdersRoute
   ProviderRoute: typeof ProviderRouteWithChildren
-  ProvidersRoute: typeof ProvidersRoute
-  RatingRoute: typeof RatingRoute
   RegisterRoute: typeof RegisterRoute
-  TrackingRoute: typeof TrackingRoute
-  OrderTypeRoute: typeof OrderTypeRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/tracking': {
-      id: '/tracking'
-      path: '/tracking'
-      fullPath: '/tracking'
-      preLoaderRoute: typeof TrackingRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/register': {
       id: '/register'
       path: '/register'
       fullPath: '/register'
       preLoaderRoute: typeof RegisterRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/rating': {
-      id: '/rating'
-      path: '/rating'
-      fullPath: '/rating'
-      preLoaderRoute: typeof RatingRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/providers': {
-      id: '/providers'
-      path: '/providers'
-      fullPath: '/providers'
-      preLoaderRoute: typeof ProvidersRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/provider': {
@@ -309,13 +224,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/provider/history': {
-      id: '/provider/history'
-      path: '/history'
-      fullPath: '/provider/history'
-      preLoaderRoute: typeof ProviderHistoryRouteImport
-      parentRoute: typeof ProviderRoute
-    }
     '/provider/active': {
       id: '/provider/active'
       path: '/active'
@@ -323,24 +231,15 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProviderActiveRouteImport
       parentRoute: typeof ProviderRoute
     }
-    '/order/$type': {
-      id: '/order/$type'
-      path: '/order/$type'
-      fullPath: '/order/$type'
-      preLoaderRoute: typeof OrderTypeRouteImport
-      parentRoute: typeof rootRouteImport
-    }
   }
 }
 
 interface ProviderRouteChildren {
   ProviderActiveRoute: typeof ProviderActiveRoute
-  ProviderHistoryRoute: typeof ProviderHistoryRoute
 }
 
 const ProviderRouteChildren: ProviderRouteChildren = {
   ProviderActiveRoute: ProviderActiveRoute,
-  ProviderHistoryRoute: ProviderHistoryRoute,
 }
 
 const ProviderRouteWithChildren = ProviderRoute._addFileChildren(
@@ -356,11 +255,7 @@ const rootRouteChildren: RootRouteChildren = {
   NotificationsRoute: NotificationsRoute,
   OrdersRoute: OrdersRoute,
   ProviderRoute: ProviderRouteWithChildren,
-  ProvidersRoute: ProvidersRoute,
-  RatingRoute: RatingRoute,
   RegisterRoute: RegisterRoute,
-  TrackingRoute: TrackingRoute,
-  OrderTypeRoute: OrderTypeRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

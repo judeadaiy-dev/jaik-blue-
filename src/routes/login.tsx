@@ -4,6 +4,9 @@ import { Droplets, Mail, Lock, Eye, EyeOff } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { toast } from "sonner";
+import { supabase } from "@/integrations/supabase/client";
+import { lovable } from "@/integrations/lovable/index";
 
 export const Route = createFileRoute("/login")({
   head: () => ({ meta: [{ title: "تسجيل الدخول | جايك" }] }),
@@ -13,6 +16,28 @@ export const Route = createFileRoute("/login")({
 function LoginPage() {
   const navigate = useNavigate();
   const [showPw, setShowPw] = useState(false);
+  const [email, setEmail] = useState("");
+  const [pw, setPw] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  async function handleLogin(e: React.FormEvent) {
+    e.preventDefault();
+    setLoading(true);
+    const { error } = await supabase.auth.signInWithPassword({ email, password: pw });
+    setLoading(false);
+    if (error) {
+      toast.error("فشل تسجيل الدخول", { description: error.message });
+      return;
+    }
+    navigate({ to: "/home" });
+  }
+
+  async function handleGoogle() {
+    const res = await lovable.auth.signInWithOAuth("google", { redirect_uri: window.location.origin });
+    if (res.error) toast.error("تعذر تسجيل الدخول عبر جوجل");
+    if (!res.redirected && !res.error) navigate({ to: "/home" });
+  }
+
   return (
     <div className="min-h-screen w-full bg-background flex justify-center">
       <div className="relative w-full max-w-[440px] min-h-screen flex flex-col">
