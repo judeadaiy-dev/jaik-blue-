@@ -19,6 +19,8 @@ import { Route as HomeRouteImport } from './routes/home'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as AccountRouteImport } from './routes/account'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as TrackingIdRouteImport } from './routes/tracking.$id'
+import { Route as RatingIdRouteImport } from './routes/rating.$id'
 import { Route as ProviderActiveRouteImport } from './routes/provider.active'
 import { Route as ProviderDetailIdRouteImport } from './routes/provider-detail.$id'
 
@@ -72,6 +74,16 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TrackingIdRoute = TrackingIdRouteImport.update({
+  id: '/tracking/$id',
+  path: '/tracking/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RatingIdRoute = RatingIdRouteImport.update({
+  id: '/rating/$id',
+  path: '/rating/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ProviderActiveRoute = ProviderActiveRouteImport.update({
   id: '/active',
   path: '/active',
@@ -96,6 +108,8 @@ export interface FileRoutesByFullPath {
   '/register': typeof RegisterRoute
   '/provider-detail/$id': typeof ProviderDetailIdRoute
   '/provider/active': typeof ProviderActiveRoute
+  '/rating/$id': typeof RatingIdRoute
+  '/tracking/$id': typeof TrackingIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -110,6 +124,8 @@ export interface FileRoutesByTo {
   '/register': typeof RegisterRoute
   '/provider-detail/$id': typeof ProviderDetailIdRoute
   '/provider/active': typeof ProviderActiveRoute
+  '/rating/$id': typeof RatingIdRoute
+  '/tracking/$id': typeof TrackingIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -125,6 +141,8 @@ export interface FileRoutesById {
   '/register': typeof RegisterRoute
   '/provider-detail/$id': typeof ProviderDetailIdRoute
   '/provider/active': typeof ProviderActiveRoute
+  '/rating/$id': typeof RatingIdRoute
+  '/tracking/$id': typeof TrackingIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -141,6 +159,8 @@ export interface FileRouteTypes {
     | '/register'
     | '/provider-detail/$id'
     | '/provider/active'
+    | '/rating/$id'
+    | '/tracking/$id'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -155,6 +175,8 @@ export interface FileRouteTypes {
     | '/register'
     | '/provider-detail/$id'
     | '/provider/active'
+    | '/rating/$id'
+    | '/tracking/$id'
   id:
     | '__root__'
     | '/'
@@ -169,6 +191,8 @@ export interface FileRouteTypes {
     | '/register'
     | '/provider-detail/$id'
     | '/provider/active'
+    | '/rating/$id'
+    | '/tracking/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -183,6 +207,8 @@ export interface RootRouteChildren {
   ProviderRoute: typeof ProviderRouteWithChildren
   RegisterRoute: typeof RegisterRoute
   ProviderDetailIdRoute: typeof ProviderDetailIdRoute
+  RatingIdRoute: typeof RatingIdRoute
+  TrackingIdRoute: typeof TrackingIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -257,6 +283,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/tracking/$id': {
+      id: '/tracking/$id'
+      path: '/tracking/$id'
+      fullPath: '/tracking/$id'
+      preLoaderRoute: typeof TrackingIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/rating/$id': {
+      id: '/rating/$id'
+      path: '/rating/$id'
+      fullPath: '/rating/$id'
+      preLoaderRoute: typeof RatingIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/provider/active': {
       id: '/provider/active'
       path: '/active'
@@ -298,6 +338,8 @@ const rootRouteChildren: RootRouteChildren = {
   ProviderRoute: ProviderRouteWithChildren,
   RegisterRoute: RegisterRoute,
   ProviderDetailIdRoute: ProviderDetailIdRoute,
+  RatingIdRoute: RatingIdRoute,
+  TrackingIdRoute: TrackingIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
