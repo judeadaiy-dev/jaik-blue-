@@ -66,7 +66,8 @@
   --color-gas-foreground: var(--gas-foreground);
   --color-success: var(--success);
   --color-warning: var(--warning);
-  --font-sans: "Cairo", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "SST Arabic", "Cairo", ui-sans-serif, system-ui, sans-serif;
+  --font-brand: "TAN BUSTER", "Playfair Display", ui-serif, Georgia, serif;
 }
 
 :root {
@@ -162,6 +163,11 @@
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
-    font-family: "Cairo", ui-sans-serif, system-ui, sans-serif;
+    font-family: var(--font-sans);
   }
+}
+
+@utility font-brand {
+  font-family: var(--font-brand);
+  letter-spacing: 0.02em;
 }
