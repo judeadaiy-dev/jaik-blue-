@@ -2,6 +2,7 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect } from "react";
 import { Droplets } from "lucide-react";
 import { useAuth } from "@/lib/auth-context";
+import { FromBlue } from "@/components/FromBlue";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -22,12 +23,12 @@ function Splash() {
     if (loading) return;
     const t = setTimeout(() => {
       navigate({ to: user ? "/home" : "/login" });
-    }, 1500);
+    }, 3000);
     return () => clearTimeout(t);
   }, [navigate, user, loading]);
   return (
     <div
-      className="flex min-h-screen items-center justify-center"
+      className="relative flex min-h-screen items-center justify-center"
       style={{ background: "var(--gradient-hero)" }}
     >
       <div className="flex flex-col items-center gap-5 animate-in fade-in zoom-in duration-700">
@@ -42,6 +43,7 @@ function Splash() {
           <span className="w-2 h-2 rounded-full bg-white/80 animate-bounce" />
         </div>
       </div>
+      <FromBlue />
     </div>
   );
 }

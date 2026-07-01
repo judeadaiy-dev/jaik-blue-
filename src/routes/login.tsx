@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { lovable } from "@/integrations/lovable/index";
+import { FromBlue } from "@/components/FromBlue";
 
 export const Route = createFileRoute("/login")({
   head: () => ({ meta: [{ title: "تسجيل الدخول | جايك" }] }),
@@ -15,6 +16,11 @@ export const Route = createFileRoute("/login")({
 
 function LoginPage() {
   const navigate = useNavigate();
+  const [showBrand, setShowBrand] = useState(true);
+  useState(() => {}); // noop
+  // hide "From Blue" after 3s
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  useEffectHideBrand(setShowBrand);
   const [showPw, setShowPw] = useState(false);
   const [email, setEmail] = useState("");
   const [pw, setPw] = useState("");
@@ -83,7 +89,16 @@ function LoginPage() {
             <Link to="/register" className="text-primary font-bold">إنشاء حساب</Link>
           </div>
         </form>
+        {showBrand && <FromBlue className="text-primary/80" />}
       </div>
     </div>
   );
+}
+
+import { useEffect } from "react";
+function useEffectHideBrand(setShowBrand: (v: boolean) => void) {
+  useEffect(() => {
+    const t = setTimeout(() => setShowBrand(false), 3000);
+    return () => clearTimeout(t);
+  }, [setShowBrand]);
 }
