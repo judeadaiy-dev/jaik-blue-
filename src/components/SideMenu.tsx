@@ -60,10 +60,9 @@ export function SideMenu() {
                 </button>
               )}
             </nav>
-            <div className="border-t border-border p-4 text-center text-xs text-muted-foreground leading-relaxed">
-              جميع الحقوق محفوظة © {new Date().getFullYear()}
-              <div className="font-bold text-foreground mt-1">شركة Blue للتقنية</div>
-              <div>المطور: استبرق</div>
+            <div className="border-t border-border p-4 text-center text-sm text-muted-foreground">
+              <span className="align-middle">From </span>
+              <span className="font-brand text-foreground text-lg align-middle">BLUE</span>
             </div>
           </aside>
         </div>
