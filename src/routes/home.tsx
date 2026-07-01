@@ -82,7 +82,6 @@ function HomePage() {
       <div className="relative w-full max-w-[440px] min-h-screen flex flex-col">
         <div className="px-5 pt-6 pb-14 rounded-b-[2rem] text-white relative overflow-hidden" style={{ background: "var(--gradient-hero)" }}>
           <div className="absolute -left-8 -bottom-8 w-32 h-32 rounded-full bg-white/10" />
-          <div className="absolute right-10 top-4 w-12 h-12 rounded-full bg-white/10" />
           <div className="relative flex items-center justify-between">
             <div>
               <p className="text-white/80 text-xs">موقعك الحالي</p>
