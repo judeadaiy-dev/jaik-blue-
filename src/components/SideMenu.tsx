@@ -15,7 +15,7 @@ export function SideMenu() {
         type="button"
         aria-label="القائمة"
         onClick={() => setOpen(true)}
-        className="w-11 h-11 rounded-2xl bg-card border border-border flex items-center justify-center shadow-[var(--shadow-soft)]"
+        className="w-11 h-11 rounded-2xl bg-white/95 border border-white/60 text-foreground flex items-center justify-center shadow-[var(--shadow-soft)]"
       >
         <Menu className="w-5 h-5" />
       </button>
@@ -25,7 +25,7 @@ export function SideMenu() {
           <aside
             onClick={(e) => e.stopPropagation()}
             dir="rtl"
-            className="relative ms-auto w-[85%] max-w-[340px] h-full bg-background text-foreground shadow-2xl flex flex-col"
+            className="relative ms-auto w-[85%] max-w-[340px] h-full bg-card text-foreground shadow-2xl flex flex-col"
           >
             <div className="p-5 text-white" style={{ background: "var(--gradient-hero)" }}>
               <div className="flex justify-between items-start">
@@ -38,7 +38,7 @@ export function SideMenu() {
                 </button>
               </div>
             </div>
-            <nav className="flex-1 overflow-y-auto p-3 space-y-1 bg-background">
+            <nav className="flex-1 overflow-y-auto p-3 space-y-1 bg-card">
               <Item to="/home" icon={Home} label="الرئيسية" onClick={() => setOpen(false)} />
               <Item to="/orders" icon={Package} label="طلباتي" onClick={() => setOpen(false)} />
               <Item to="/notifications" icon={Bell} label="الإشعارات" onClick={() => setOpen(false)} />
