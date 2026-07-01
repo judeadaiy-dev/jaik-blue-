@@ -1,5 +1,5 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Droplets, Mail, Lock, Eye, EyeOff } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -17,14 +17,14 @@ export const Route = createFileRoute("/login")({
 function LoginPage() {
   const navigate = useNavigate();
   const [showBrand, setShowBrand] = useState(true);
-  useState(() => {}); // noop
-  // hide "From Blue" after 3s
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  useEffectHideBrand(setShowBrand);
   const [showPw, setShowPw] = useState(false);
   const [email, setEmail] = useState("");
   const [pw, setPw] = useState("");
   const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    const t = setTimeout(() => setShowBrand(false), 3000);
+    return () => clearTimeout(t);
+  }, []);
 
   async function handleLogin(e: React.FormEvent) {
     e.preventDefault();
@@ -93,12 +93,4 @@ function LoginPage() {
       </div>
     </div>
   );
-}
-
-import { useEffect } from "react";
-function useEffectHideBrand(setShowBrand: (v: boolean) => void) {
-  useEffect(() => {
-    const t = setTimeout(() => setShowBrand(false), 3000);
-    return () => clearTimeout(t);
-  }, [setShowBrand]);
 }
