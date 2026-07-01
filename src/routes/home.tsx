@@ -80,28 +80,28 @@ function HomePage() {
   return (
     <div className="min-h-screen w-full bg-background flex justify-center">
       <div className="relative w-full max-w-[440px] min-h-screen flex flex-col">
-        <div className="px-5 pt-10 pb-20 rounded-b-[2.5rem] text-white relative overflow-hidden" style={{ background: "var(--gradient-hero)" }}>
-          <div className="absolute -left-8 -bottom-8 w-40 h-40 rounded-full bg-white/10" />
-          <div className="absolute right-10 top-6 w-16 h-16 rounded-full bg-white/10" />
+        <div className="px-5 pt-6 pb-14 rounded-b-[2rem] text-white relative overflow-hidden" style={{ background: "var(--gradient-hero)" }}>
+          <div className="absolute -left-8 -bottom-8 w-32 h-32 rounded-full bg-white/10" />
+          <div className="absolute right-10 top-4 w-12 h-12 rounded-full bg-white/10" />
           <div className="relative flex items-center justify-between">
             <div>
               <p className="text-white/80 text-xs">موقعك الحالي</p>
-              <div className="flex items-center gap-1.5 mt-1">
-                <MapPin className="w-5 h-5" />
-                <span className="font-bold text-lg">{profile?.governorate ?? "..."} - {profile?.area ?? "..."}</span>
+              <div className="flex items-center gap-1.5 mt-0.5">
+                <MapPin className="w-4 h-4" />
+                <span className="font-bold text-base">{profile?.governorate ?? "..."} - {profile?.area ?? "..."}</span>
               </div>
-              <Link to="/onboarding" className="text-xs text-white/80 underline mt-1 block">تغيير الموقع</Link>
+              <Link to="/onboarding" className="text-[11px] text-white/80 underline mt-0.5 block">تغيير الموقع</Link>
             </div>
             <SideMenu />
           </div>
-          <h2 className="relative mt-6 text-2xl font-extrabold">مرحباً بك في جايك 👋</h2>
-          <p className="relative text-white/90 text-sm mt-1">اختر الخدمة وشاهد المزودين المتوفرين</p>
+          <h2 className="relative mt-4 text-xl font-extrabold">مرحباً بك في جايك 👋</h2>
+          <p className="relative text-white/90 text-xs mt-0.5">كل خدمات البيت... بطلب واحد</p>
         </div>
 
-        <div className="flex-1 px-5 -mt-14 pb-4 space-y-5">
+        <div className="flex-1 px-5 -mt-8 pb-4 space-y-5">
           <div className="grid grid-cols-2 gap-3">
-            <FilterCard active={filter === "water" || filter === "all"} title="الماء" subtitle={`${waterCount} مزود`} icon={<Droplets className="w-8 h-8" />} gradient="var(--gradient-water)" onClick={() => setFilter(filter === "water" ? "all" : "water")} />
-            <FilterCard active={filter === "gas" || filter === "all"} title="الغاز" subtitle={`${gasCount} مزود`} icon={<Flame className="w-8 h-8" />} gradient="var(--gradient-gas)" onClick={() => setFilter(filter === "gas" ? "all" : "gas")} />
+            <FilterCard active={filter !== "gas"} title="الماء" subtitle={`${waterCount} مزود`} icon={<Droplets className="w-8 h-8" />} gradient="var(--gradient-water)" onClick={() => setFilter(filter === "water" ? "all" : "water")} />
+            <FilterCard active={filter !== "water"} title="الغاز" subtitle={`${gasCount} مزود`} icon={<Flame className="w-8 h-8" />} gradient="var(--gradient-gas)" onClick={() => setFilter(filter === "gas" ? "all" : "gas")} />
           </div>
 
           <section>
@@ -127,11 +127,11 @@ function HomePage() {
 
 function FilterCard({ active, title, subtitle, icon, gradient, onClick }: { active: boolean; title: string; subtitle: string; icon: React.ReactNode; gradient: string; onClick: () => void }) {
   return (
-    <button onClick={onClick} className={`rounded-3xl p-5 text-white shadow-[var(--shadow-card)] flex flex-col gap-2 active:scale-95 transition-transform ${active ? "" : "opacity-50"}`} style={{ background: gradient }}>
-      <div className="w-12 h-12 rounded-2xl bg-white/25 flex items-center justify-center">{icon}</div>
+    <button onClick={onClick} className={`relative rounded-3xl p-5 text-white shadow-[var(--shadow-card)] flex flex-col gap-2 active:scale-95 transition-all ${active ? "ring-2 ring-white/60" : "opacity-80"}`} style={{ background: gradient }}>
+      <div className="w-14 h-14 rounded-2xl bg-white/25 flex items-center justify-center">{icon}</div>
       <div className="text-right">
-        <div className="font-extrabold text-lg leading-tight">{title}</div>
-        <div className="text-white/85 text-sm">{subtitle}</div>
+        <div className="font-extrabold text-xl leading-tight">{title}</div>
+        <div className="text-white/90 text-sm font-semibold">{subtitle}</div>
       </div>
     </button>
   );
