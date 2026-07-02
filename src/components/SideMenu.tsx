@@ -20,12 +20,12 @@ export function SideMenu() {
         <Menu className="w-5 h-5" />
       </button>
       {open && (
-        <div className="fixed inset-0 z-[100] flex" onClick={() => setOpen(false)} style={{ pointerEvents: "auto" }}>
+        <div className="fixed inset-0 z-[100]" onClick={() => setOpen(false)}>
           <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
           <aside
             onClick={(e) => e.stopPropagation()}
             dir="rtl"
-            className="relative ms-auto w-[85%] max-w-[340px] h-full bg-white text-foreground shadow-2xl flex flex-col animate-in slide-in-from-left duration-200"
+            className="absolute top-0 right-0 bottom-0 w-[86%] max-w-[340px] bg-white text-foreground shadow-2xl flex flex-col animate-in slide-in-from-right duration-200"
           >
             <div className="p-5 text-white" style={{ background: "var(--gradient-hero)" }}>
               <div className="flex justify-between items-start">
