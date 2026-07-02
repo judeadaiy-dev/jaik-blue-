@@ -1,5 +1,5 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Droplets, Mail, Lock, Eye, EyeOff } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -7,7 +7,6 @@ import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { lovable } from "@/integrations/lovable/index";
-import { FromBlue } from "@/components/FromBlue";
 
 export const Route = createFileRoute("/login")({
   head: () => ({ meta: [{ title: "تسجيل الدخول | جايك" }] }),
@@ -16,24 +15,27 @@ export const Route = createFileRoute("/login")({
 
 function LoginPage() {
   const navigate = useNavigate();
-  const [showBrand, setShowBrand] = useState(true);
   const [showPw, setShowPw] = useState(false);
   const [email, setEmail] = useState("");
   const [pw, setPw] = useState("");
   const [loading, setLoading] = useState(false);
-  useEffect(() => {
-    const t = setTimeout(() => setShowBrand(false), 3000);
-    return () => clearTimeout(t);
-  }, []);
 
   async function handleLogin(e: React.FormEvent) {
     e.preventDefault();
     setLoading(true);
-    const { error } = await supabase.auth.signInWithPassword({ email, password: pw });
+    const { data, error } = await supabase.auth.signInWithPassword({ email, password: pw });
     setLoading(false);
     if (error) return toast.error("فشل تسجيل الدخول", { description: error.message });
     toast.success("مرحباً بعودتك");
-    navigate({ to: "/home" });
+    // route based on role
+    const userId = data.user?.id;
+    if (userId) {
+      const { data: roles } = await supabase.from("user_roles").select("role").eq("user_id", userId);
+      const isProvider = (roles ?? []).some((r: { role: string }) => r.role === "provider");
+      navigate({ to: isProvider ? "/provider" : "/home" });
+    } else {
+      navigate({ to: "/home" });
+    }
   }
 
   async function handleGoogle() {
@@ -89,7 +91,6 @@ function LoginPage() {
             <Link to="/register" className="text-primary font-bold">إنشاء حساب</Link>
           </div>
         </form>
-        {showBrand && <FromBlue className="text-primary/80" />}
       </div>
     </div>
   );

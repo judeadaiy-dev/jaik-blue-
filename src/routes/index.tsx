@@ -1,8 +1,7 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect } from "react";
-import { Droplets } from "lucide-react";
 import { useAuth } from "@/lib/auth-context";
-import { FromBlue } from "@/components/FromBlue";
+import { Droplets } from "lucide-react";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -43,7 +42,6 @@ function Splash() {
           <span className="w-2 h-2 rounded-full bg-white/80 animate-bounce" />
         </div>
       </div>
-      <FromBlue className="text-white" />
     </div>
   );
 }
