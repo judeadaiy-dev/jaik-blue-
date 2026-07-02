@@ -20,12 +20,12 @@ export function SideMenu() {
         <Menu className="w-5 h-5" />
       </button>
       {open && (
-        <div className="fixed inset-0 z-50 flex" onClick={() => setOpen(false)}>
-          <div className="absolute inset-0 bg-black/40" />
+        <div className="fixed inset-0 z-[100] flex" onClick={() => setOpen(false)} style={{ pointerEvents: "auto" }}>
+          <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
           <aside
             onClick={(e) => e.stopPropagation()}
             dir="rtl"
-            className="relative ms-auto w-[85%] max-w-[340px] h-full bg-card text-foreground shadow-2xl flex flex-col"
+            className="relative ms-auto w-[85%] max-w-[340px] h-full bg-white text-foreground shadow-2xl flex flex-col animate-in slide-in-from-left duration-200"
           >
             <div className="p-5 text-white" style={{ background: "var(--gradient-hero)" }}>
               <div className="flex justify-between items-start">
@@ -38,7 +38,7 @@ export function SideMenu() {
                 </button>
               </div>
             </div>
-            <nav className="flex-1 overflow-y-auto p-3 space-y-1 bg-card">
+            <nav className="flex-1 overflow-y-auto p-3 space-y-1 bg-white">
               <Item to="/home" icon={Home} label="الرئيسية" onClick={() => setOpen(false)} />
               <Item to="/orders" icon={Package} label="طلباتي" onClick={() => setOpen(false)} />
               <Item to="/notifications" icon={Bell} label="الإشعارات" onClick={() => setOpen(false)} />
@@ -61,8 +61,7 @@ export function SideMenu() {
               )}
             </nav>
             <div className="border-t border-border p-4 text-center text-sm text-muted-foreground">
-              <span className="align-middle">From </span>
-              <span className="font-brand text-foreground text-lg align-middle">BLUE</span>
+              جايك بلو
             </div>
           </aside>
         </div>
