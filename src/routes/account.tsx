@@ -99,10 +99,6 @@ function AccountPage() {
             تسجيل الخروج
           </button>
 
-          <div className="text-center text-xs text-muted-foreground pt-2">
-            جميع الحقوق محفوظة © {new Date().getFullYear()}<br />
-            <span className="font-bold text-foreground">شركة Blue للتقنية</span> — المطور: استبرق
-          </div>
         </div>
         <BottomNav />
       </div>
