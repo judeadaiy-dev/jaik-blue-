@@ -66,6 +66,7 @@ function ProviderSetupPage() {
       lat: pos[0],
       lng: pos[1],
       is_available: true,
+      status: "active" as const,
     };
     // upsert: if exists update, else insert
     const { data: existing } = await supabase.from("providers").select("id").eq("user_id", user.id).maybeSingle();
