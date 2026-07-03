@@ -80,22 +80,27 @@ function HomePage() {
   return (
     <div className="min-h-screen w-full bg-background flex justify-center">
       <div className="relative w-full max-w-[440px] min-h-screen flex flex-col">
-        <div className="px-5 pt-6 pb-14 rounded-b-[2rem] text-white relative overflow-hidden" style={{ background: "var(--gradient-hero)" }}>
-          <div className="absolute -left-8 -bottom-8 w-32 h-32 rounded-full bg-white/10" />
-          <div className="relative flex items-center justify-between">
-            <div>
-              <p className="text-white/80 text-xs">موقعك الحالي</p>
-              <div className="flex items-center gap-1.5 mt-0.5">
-                <MapPin className="w-4 h-4" />
-                <span className="font-bold text-base">{profile?.governorate ?? "..."} - {profile?.area ?? "..."}</span>
-              </div>
-              <Link to="/onboarding" className="text-[11px] text-white/80 underline mt-0.5 block">تغيير الموقع</Link>
-            </div>
+        <header className="px-5 pt-6 pb-12 rounded-b-[2rem] text-white relative overflow-hidden" style={{ background: "var(--gradient-hero)" }}>
+          <div className="relative flex items-center justify-between gap-3">
             <SideMenu />
+            <Link
+              to="/onboarding"
+              className="flex items-center gap-2 rounded-full bg-white/15 backdrop-blur px-3 py-1.5 border border-white/20"
+              aria-label="تغيير الموقع"
+            >
+              <MapPin className="w-4 h-4 shrink-0" />
+              <span className="font-semibold text-sm truncate max-w-[180px]">
+                {profile?.governorate && profile?.area
+                  ? `${profile.governorate} · ${profile.area}`
+                  : "حدد موقعك"}
+              </span>
+            </Link>
           </div>
-          <h2 className="relative mt-4 text-xl font-extrabold">مرحباً بك في جايك 👋</h2>
-          <p className="relative text-white/90 text-xs mt-0.5">كل خدمات البيت... بطلب واحد</p>
-        </div>
+          <div className="relative mt-6">
+            <h1 className="text-2xl font-extrabold leading-tight">أهلاً بك في جايك</h1>
+            <p className="text-white/85 text-sm mt-1">اطلب الماء والغاز بسهولة إلى باب بيتك</p>
+          </div>
+        </header>
 
         <div className="flex-1 px-5 -mt-8 pb-4 space-y-5">
           <div className="grid grid-cols-2 gap-3">
