@@ -10,7 +10,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/lib/auth-context";
-import { LeafletMap } from "@/components/LeafletMap";
+import { MapLibreMap } from "@/components/MapLibreMap";
 
 export const Route = createFileRoute("/provider-setup")({
   head: () => ({ meta: [{ title: "تسجيل كمزود | جايك" }] }),
@@ -133,7 +133,7 @@ function ProviderSetupPage() {
               <MapPin className="w-4 h-4 text-primary" />
               <span className="font-semibold text-sm">حدد موقعك على الخريطة (اضغط أو اسحب الدبوس)</span>
             </div>
-            <LeafletMap center={pos} zoom={13} draggable onChange={(la, ln) => setPos([la, ln])} height={240} />
+            <MapLibreMap center={pos} zoom={13} draggable onChange={(la, ln) => setPos([la, ln])} height={240} />
           </div>
 
           <Button onClick={submit} disabled={saving} className="w-full h-14 rounded-2xl text-base font-bold">

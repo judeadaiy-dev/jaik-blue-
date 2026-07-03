@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
+import { MapLibreMap } from "@/components/MapLibreMap";
 
 export const Route = createFileRoute("/tracking/$id")({
   head: () => ({ meta: [{ title: "تتبع الطلب | جايك" }] }),
@@ -28,7 +29,7 @@ interface Order {
   service_type: "water" | "gas";
   address: string | null;
   notes: string | null;
-  provider: { business_name: string; phone: string; whatsapp: string | null } | null;
+  provider: { business_name: string; phone: string; whatsapp: string | null; lat: number | null; lng: number | null } | null;
 }
 
 function TrackingPage() {
@@ -39,7 +40,7 @@ function TrackingPage() {
   async function load() {
     const { data } = await supabase
       .from("orders")
-      .select("id,status,price,quantity,service_type,address,notes,providers(business_name,phone,whatsapp)")
+      .select("id,status,price,quantity,service_type,address,notes,providers(business_name,phone,whatsapp,lat,lng)")
       .eq("id", id)
       .maybeSingle();
     if (data) {
@@ -68,6 +69,9 @@ function TrackingPage() {
   const cancelled = order.status === "cancelled" || order.status === "rejected";
   const current = STATUSES.indexOf(order.status as (typeof STATUSES)[number]);
   const progress = cancelled ? 0 : ((current + 1) / STATUSES.length) * 100;
+  const providerLat = order.provider?.lat != null ? Number(order.provider.lat) : null;
+  const providerLng = order.provider?.lng != null ? Number(order.provider.lng) : null;
+  const hasMap = !cancelled && providerLat !== null && providerLng !== null;
 
   return (
     <div className="min-h-screen bg-background flex justify-center">
@@ -95,6 +99,18 @@ function TrackingPage() {
               <div className="mt-1 font-semibold text-foreground">المجموع: {order.price.toLocaleString()} د.ع</div>
             </div>
           </div>
+
+          {hasMap && (
+            <div className="bg-card rounded-3xl p-2 shadow-[var(--shadow-soft)] overflow-hidden">
+              <MapLibreMap
+                center={[providerLat!, providerLng!]}
+                zoom={14}
+                height={240}
+                markers={[{ lat: providerLat!, lng: providerLng!, label: order.provider?.business_name, color: order.service_type === "water" ? "#0EA5E9" : "#F97316" }]}
+              />
+              <div className="text-[11px] text-muted-foreground text-center py-2">موقع المزود المباشر</div>
+            </div>
+          )}
 
           {cancelled ? (
             <div className="bg-destructive/10 text-destructive rounded-3xl p-6 text-center">

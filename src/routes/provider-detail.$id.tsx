@@ -9,7 +9,7 @@ import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/lib/auth-context";
-import { LeafletMap } from "@/components/LeafletMap";
+import { MapLibreMap } from "@/components/MapLibreMap";
 
 export const Route = createFileRoute("/provider-detail/$id")({
   head: () => ({ meta: [{ title: "تفاصيل المزود | جايك" }] }),
@@ -150,7 +150,7 @@ function ProviderDetail() {
                 <MapPin className="w-4 h-4 text-primary" />
                 <span className="font-semibold text-sm">موقع المزود</span>
               </div>
-              <LeafletMap center={[Number(p.lat), Number(p.lng)]} zoom={14} height={200} />
+              <MapLibreMap center={[Number(p.lat), Number(p.lng)]} zoom={14} height={200} />
             </div>
           )}
 
