@@ -2,6 +2,23 @@ import { useEffect, useRef, useState } from "react";
 import maplibregl, { Map as MLMap, Marker as MLMarker } from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 
+// Enable Arabic/RTL text shaping so labels like "شارع" render correctly and don't appear as "ش ا ر ع".
+// Guarded so it only runs once per session and only in the browser.
+if (typeof window !== "undefined") {
+  const g = window as unknown as { __mlRtlLoaded?: boolean };
+  if (!g.__mlRtlLoaded) {
+    try {
+      maplibregl.setRTLTextPlugin(
+        "https://unpkg.com/@mapbox/mapbox-gl-rtl-text@0.2.3/mapbox-gl-rtl-text.js",
+        true,
+      );
+      g.__mlRtlLoaded = true;
+    } catch {
+      /* already registered */
+    }
+  }
+}
+
 interface MarkerInput {
   lat: number;
   lng: number;
@@ -47,6 +64,27 @@ export function MapLibreMap({
       attributionControl: { compact: true },
     });
     map.addControl(new maplibregl.NavigationControl({ showCompass: false }), "top-left");
+
+    // Prefer Arabic labels when available on the tiles.
+    map.on("styledata", () => {
+      const style = map.getStyle();
+      if (!style?.layers) return;
+      for (const layer of style.layers) {
+        if (layer.type === "symbol") {
+          try {
+            map.setLayoutProperty(layer.id, "text-field", [
+              "coalesce",
+              ["get", "name:ar"],
+              ["get", "name_ar"],
+              ["get", "name:en"],
+              ["get", "name"],
+            ]);
+          } catch {
+            /* layer without text-field */
+          }
+        }
+      }
+    });
 
     const marker = new maplibregl.Marker({ color: "#0EA5E9", draggable: !!draggable })
       .setLngLat([center[1], center[0]])
