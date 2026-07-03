@@ -12,8 +12,11 @@ const items = [
 export function BottomNav() {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   return (
-    <nav className="sticky bottom-0 inset-x-0 bg-card border-t border-border px-2 pt-2 pb-3 shadow-[0_-6px_20px_-12px_oklch(0.5_0.1_240_/_0.18)]">
-      <ul className="flex items-center justify-around">
+    <nav
+      className="sticky bottom-0 inset-x-0 bg-card border-t border-border px-2 pt-2 shadow-[0_-6px_20px_-12px_oklch(0.5_0.1_240_/_0.18)]"
+      style={{ paddingBottom: "max(12px, env(safe-area-inset-bottom))" }}
+    >
+      <ul className="flex items-center justify-around h-14">
         {items.map(({ to, label, icon: Icon }) => {
           const active = pathname === to || (to !== "/home" && pathname.startsWith(to));
           return (
