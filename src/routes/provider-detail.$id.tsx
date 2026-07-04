@@ -94,6 +94,14 @@ function ProviderDetail() {
         related_order_id: order.id,
       });
     }
+    // Notify the customer that the booking reached the provider
+    await supabase.from("notifications").insert({
+      user_id: user.id,
+      title: "تم إرسال طلبك للمزود",
+      body: `طلب #${order.id.slice(0, 8)} — بانتظار قبول المزود`,
+      type: "order_update",
+      related_order_id: order.id,
+    });
     // Open WhatsApp for coordination
     if (p.whatsapp) {
       const msg = encodeURIComponent(`السلام عليكم، طلبت ${p.service_type === "water" ? "ماء" : "غاز"} × ${qty}\nالعنوان: ${address}\n${notes ? "ملاحظات: " + notes : ""}\nرقم الطلب: ${order.id.slice(0, 8)}`);
