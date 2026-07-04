@@ -68,7 +68,7 @@ function OrdersPage() {
         <PageHeader title="طلباتي" />
 
         {/* Summary strip */}
-        <div className="px-5 -mt-2 mb-4 grid grid-cols-3 gap-2">
+        <div className="px-5 mb-4 grid grid-cols-3 gap-2">
           {tabs.map((t) => (
             <button
               key={t.key}
