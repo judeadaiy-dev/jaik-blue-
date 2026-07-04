@@ -64,28 +64,27 @@ function OrdersPage() {
 
   return (
     <div className="min-h-screen bg-background flex justify-center">
-      <div className="w-full max-w-[440px] min-h-screen flex flex-col pb-24">
+      <div className="w-full max-w-[440px] min-h-screen flex flex-col">
         <PageHeader title="طلباتي" />
+        <div className="flex-1 px-5 pb-24 space-y-3">
+          {/* Summary strip */}
+          <div className="grid grid-cols-3 gap-2">
+            {tabs.map((t) => (
+              <button
+                key={t.key}
+                onClick={() => setTab(t.key)}
+                className={`rounded-2xl p-3 text-center transition-all ${
+                  tab === t.key
+                    ? "bg-primary text-primary-foreground shadow-[var(--shadow-card)]"
+                    : "bg-card text-foreground shadow-[var(--shadow-soft)]"
+                }`}
+              >
+                <div className="text-xl font-extrabold leading-none">{t.count}</div>
+                <div className={`text-[11px] mt-1 ${tab === t.key ? "opacity-90" : "text-muted-foreground"}`}>{t.label}</div>
+              </button>
+            ))}
+          </div>
 
-        {/* Summary strip */}
-        <div className="px-5 mb-4 grid grid-cols-3 gap-2">
-          {tabs.map((t) => (
-            <button
-              key={t.key}
-              onClick={() => setTab(t.key)}
-              className={`rounded-2xl p-3 text-center transition-all ${
-                tab === t.key
-                  ? "bg-primary text-primary-foreground shadow-[var(--shadow-card)]"
-                  : "bg-card text-foreground shadow-[var(--shadow-soft)]"
-              }`}
-            >
-              <div className="text-xl font-extrabold leading-none">{t.count}</div>
-              <div className={`text-[11px] mt-1 ${tab === t.key ? "opacity-90" : "text-muted-foreground"}`}>{t.label}</div>
-            </button>
-          ))}
-        </div>
-
-        <div className="px-5 flex-1 space-y-3">
           {current.length === 0 ? (
             <div className="bg-card rounded-3xl p-10 text-center shadow-[var(--shadow-soft)]">
               <div className="w-16 h-16 mx-auto rounded-2xl bg-muted flex items-center justify-center mb-3">
