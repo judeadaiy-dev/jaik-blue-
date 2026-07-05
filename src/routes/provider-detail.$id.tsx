@@ -105,7 +105,13 @@ function ProviderDetail() {
     // Open WhatsApp for coordination
     if (p.whatsapp) {
       const msg = encodeURIComponent(`السلام عليكم، طلبت ${p.service_type === "water" ? "ماء" : "غاز"} × ${qty}\nالعنوان: ${address}\n${notes ? "ملاحظات: " + notes : ""}\nرقم الطلب: ${order.id.slice(0, 8)}`);
-      window.open(`https://wa.me/${p.whatsapp.replace(/\D/g, "")}?text=${msg}`, "_blank");
+      const url = `https://wa.me/${p.whatsapp.replace(/\D/g, "")}?text=${msg}`;
+      try {
+        const { Browser } = await import("@capacitor/browser");
+        await Browser.open({ url });
+      } catch {
+        window.open(url, "_blank");
+      }
     }
     toast.success("تم إرسال الطلب");
     navigate({ to: "/tracking/$id", params: { id: order.id } });
