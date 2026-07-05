@@ -51,9 +51,9 @@ function AccountPage() {
             <div className="w-20 h-20 rounded-3xl flex items-center justify-center text-white text-3xl font-extrabold" style={{ background: "var(--gradient-hero)" }}>{initials}</div>
             <div className="flex-1 min-w-0">
               <div className="font-extrabold text-xl">{profile.full_name ?? "—"}</div>
-              <div className="text-sm text-muted-foreground flex items-center gap-1 mt-1 truncate"><Mail className="w-4 h-4 shrink-0" /> {user?.email}</div>
-              {profile.phone && <div className="text-sm text-muted-foreground flex items-center gap-1 mt-0.5"><Phone className="w-4 h-4" /> {profile.phone}</div>}
-              {profile.gov && <div className="text-sm text-muted-foreground flex items-center gap-1 mt-0.5"><MapPin className="w-4 h-4" /> {profile.gov} - {profile.area}</div>}
+              <div className="text-[11px] text-muted-foreground flex items-center gap-1 mt-1 truncate"><Mail className="w-3 h-3 shrink-0" /> <span className="truncate">{user?.email}</span></div>
+              {profile.phone && <div className="text-[11px] text-muted-foreground flex items-center gap-1 mt-0.5"><Phone className="w-3 h-3" /> {profile.phone}</div>}
+              {profile.gov && <div className="text-[11px] text-muted-foreground flex items-center gap-1 mt-0.5"><MapPin className="w-3 h-3" /> {profile.gov} - {profile.area}</div>}
             </div>
           </div>
 
