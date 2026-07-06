@@ -1,9 +1,15 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
-import { Mail, Lock, Eye, EyeOff, Globe } from "lucide-react";
+import { Mail, Lock, Eye, EyeOff, Globe, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { lovable } from "@/integrations/lovable/index";
@@ -79,35 +85,37 @@ function LoginPage() {
 
   return (
     <div className="min-h-screen w-full bg-background flex justify-center" dir="rtl">
-      <div className="relative w-full max-w-[440px] min-h-screen flex flex-col">
-        {/* Hero */}
-        <div className="relative px-6 pt-10 pb-20 rounded-b-[2.75rem] text-white overflow-hidden" style={{ background: "var(--gradient-hero)" }}>
-          <div className="absolute -top-16 -left-16 w-56 h-56 rounded-full bg-white/10 blur-2xl" />
-          <div className="absolute -bottom-20 -right-10 w-64 h-64 rounded-full bg-white/10 blur-2xl" />
-
-          <div className="relative flex items-center justify-between">
-            <div className="inline-flex items-center gap-1 bg-white/15 backdrop-blur rounded-full p-1 text-xs font-bold">
-              <button type="button" onClick={() => setLang("ar")} className={`px-3 py-1.5 rounded-full transition ${lang === "ar" ? "bg-white text-primary" : "text-white/90"}`}>العربية</button>
-              <button type="button" onClick={() => setLang("ku")} className={`px-3 py-1.5 rounded-full transition ${lang === "ku" ? "bg-white text-primary" : "text-white/90"}`}>کوردی</button>
-            </div>
-            <Globe className="w-5 h-5 opacity-70" />
-          </div>
-
-          <div className="relative mt-8 flex flex-col items-center text-center">
-            <div className="w-20 h-20 rounded-3xl bg-white/95 flex items-center justify-center shadow-lg">
-              <img src="/icon-192.png" alt={t.brand} className="w-14 h-14 rounded-2xl" />
-            </div>
-            <h1 className="mt-4 text-4xl font-extrabold tracking-tight">{t.brand}</h1>
-            <p className="text-white/85 text-sm mt-1">{t.tagline}</p>
-          </div>
-
-          <div className="relative mt-8 text-center">
-            <h2 className="text-xl font-bold">{t.welcome}</h2>
-            <p className="text-white/80 text-sm mt-1">{t.sub}</p>
-          </div>
+      <div className="relative w-full max-w-[440px] min-h-screen flex flex-col px-6 pt-6 pb-8">
+        {/* Top bar: language dropdown */}
+        <div className="flex items-center justify-start">
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <button
+                type="button"
+                className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3 py-2 text-xs font-bold text-foreground shadow-sm"
+                aria-label="language"
+              >
+                <Globe className="w-4 h-4 text-primary" />
+                {lang === "ar" ? "العربية" : "کوردی"}
+              </button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="start" className="min-w-[140px]">
+              <DropdownMenuItem onClick={() => setLang("ar")} className="font-semibold justify-between">
+                العربية {lang === "ar" && <Check className="w-4 h-4 text-primary" />}
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => setLang("ku")} className="font-semibold justify-between">
+                کوردی {lang === "ku" && <Check className="w-4 h-4 text-primary" />}
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
 
-        <form onSubmit={handleLogin} className="-mt-12 mx-5 bg-card rounded-3xl p-6 shadow-[var(--shadow-card)] space-y-5 relative z-10">
+        {/* Centered app icon */}
+        <div className="mt-10 flex flex-col items-center">
+          <img src="/icon-192.png" alt={t.brand} className="w-28 h-28 rounded-3xl shadow-md" />
+        </div>
+
+        <form onSubmit={handleLogin} className="mt-10 space-y-5">
           <div className="space-y-2">
             <Label htmlFor="email" className="font-semibold text-sm">{t.email}</Label>
             <div className="relative">
