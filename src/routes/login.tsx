@@ -84,22 +84,23 @@ function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen w-full bg-background flex justify-center" dir="rtl">
+    <div className="min-h-screen w-full flex justify-center" style={{ background: "#E8F4FB" }} dir="rtl">
       <div className="relative w-full max-w-[440px] min-h-screen flex flex-col px-6 pt-6 pb-8">
         {/* Top bar: language dropdown */}
         <div className="flex items-center justify-start">
+          <div className="flex-1" />
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <button
                 type="button"
-                className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3 py-2 text-xs font-bold text-foreground shadow-sm"
+                className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-bold text-foreground shadow-md"
                 aria-label="language"
               >
-                <Globe className="w-4 h-4 text-primary" />
                 {lang === "ar" ? "العربية" : "کوردی"}
+                <Globe className="w-4 h-4 text-primary" />
               </button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="start" className="min-w-[140px]">
+            <DropdownMenuContent align="end" className="min-w-[140px]">
               <DropdownMenuItem onClick={() => setLang("ar")} className="font-semibold justify-between">
                 العربية {lang === "ar" && <Check className="w-4 h-4 text-primary" />}
               </DropdownMenuItem>
@@ -111,8 +112,8 @@ function LoginPage() {
         </div>
 
         {/* Centered app icon */}
-        <div className="mt-10 flex flex-col items-center">
-          <img src="/icon-192.png" alt={t.brand} className="w-28 h-28 rounded-3xl shadow-md" />
+        <div className="mt-8 flex flex-col items-center">
+          <img src="/icon-192.png" alt={t.brand} className="w-32 h-32 rounded-[28px] shadow-xl ring-1 ring-black/10" />
         </div>
 
         <form onSubmit={handleLogin} className="mt-10 space-y-5">
