@@ -84,39 +84,52 @@ function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen w-full flex justify-center" style={{ background: "#E8F4FB" }} dir="rtl">
-      <div className="relative w-full max-w-[440px] min-h-screen flex flex-col px-6 pt-6 pb-8">
-        {/* Top bar: language dropdown */}
-        <div className="flex items-center justify-start">
-          <div className="flex-1" />
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <button
-                type="button"
-                className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-bold text-foreground shadow-md"
-                aria-label="language"
-              >
-                {lang === "ar" ? "العربية" : "کوردی"}
-                <Globe className="w-4 h-4 text-primary" />
-              </button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="min-w-[140px]">
-              <DropdownMenuItem onClick={() => setLang("ar")} className="font-semibold justify-between">
-                العربية {lang === "ar" && <Check className="w-4 h-4 text-primary" />}
-              </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => setLang("ku")} className="font-semibold justify-between">
-                کوردی {lang === "ku" && <Check className="w-4 h-4 text-primary" />}
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+    <div className="min-h-screen w-full flex justify-center bg-[#E8F4FB]" dir="rtl">
+      <div className="relative w-full max-w-[440px] min-h-screen flex flex-col pb-8">
+        {/* Curved blue header */}
+        <div className="relative">
+          <div
+            className="relative w-full pt-6 pb-20 px-6"
+            style={{
+              background: "linear-gradient(135deg, #1E88E5 0%, #29B6F6 60%, #4FC3F7 100%)",
+              borderBottomLeftRadius: "50% 32px",
+              borderBottomRightRadius: "50% 32px",
+              boxShadow: "0 8px 24px -12px rgba(30,136,229,0.55)",
+            }}
+          >
+            <div className="flex items-center justify-between">
+              <div className="w-10" />
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <button
+                    type="button"
+                    className="inline-flex items-center gap-2 rounded-full bg-white/95 px-3.5 py-1.5 text-xs font-bold text-[#1E88E5] shadow"
+                    aria-label="language"
+                  >
+                    <Globe className="w-4 h-4" />
+                    {lang === "ar" ? "العربية" : "کوردی"}
+                  </button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="min-w-[140px]">
+                  <DropdownMenuItem onClick={() => setLang("ar")} className="font-semibold justify-between">
+                    العربية {lang === "ar" && <Check className="w-4 h-4 text-primary" />}
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => setLang("ku")} className="font-semibold justify-between">
+                    کوردی {lang === "ku" && <Check className="w-4 h-4 text-primary" />}
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
+            <div className="mt-4 flex flex-col items-center">
+              <div className="w-24 h-24 rounded-[24px] bg-white/95 shadow-xl ring-1 ring-white/60 flex items-center justify-center overflow-hidden">
+                <img src="/icon-192.png" alt={t.brand} className="w-20 h-20 object-contain" />
+              </div>
+              <div className="mt-3 text-white text-lg font-extrabold tracking-wide">{t.brand}</div>
+            </div>
+          </div>
         </div>
 
-        {/* Centered app icon */}
-        <div className="mt-8 flex flex-col items-center">
-          <img src="/icon-192.png" alt={t.brand} className="w-32 h-32 rounded-[28px] shadow-xl ring-1 ring-black/10" />
-        </div>
-
-        <form onSubmit={handleLogin} className="mt-10 space-y-5">
+        <form onSubmit={handleLogin} className="mt-8 space-y-5 px-6">
           <div className="space-y-2">
             <Label htmlFor="email" className="font-semibold text-sm">{t.email}</Label>
             <div className="relative">
